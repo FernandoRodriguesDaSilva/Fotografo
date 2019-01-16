@@ -1,4 +1,7 @@
 <?php
+ob_start();
+include 'conexao/config.php';
+
 session_start();
 if (!isset($_SESSION["logado"])) {
 	header("location:login.php");
@@ -9,6 +12,8 @@ $desc_evento2 = "Onde o tempo está congelado para sempre ... ";
 
 
 ?>
+
+<title><?= CASAMENTO ?></title>
 
 <?php include_once("includes/header.php"); ?>
 

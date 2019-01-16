@@ -1,37 +1,44 @@
 <?php
+
+ob_start();
+include 'conexao/config.php';
+
 session_start();
-if (!isset($_SESSION["logado"])) {
-  header("location:login.php");
-}
-?>
-<!doctype html>
+// conexao/config.php
+if(status_site == 1):
 
-<html lang="pt-br">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="Richard's " autor="Fernando Rodrigues da Silva">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>home</title>
-  <!-- Add to homescreen for Chrome on Android -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <link rel="icon" sizes="192x192" href="images/android-desktop.png">
-
-  <link rel="stylesheet" href="css/materialize.css">
-  <link rel="stylesheet" href="css/materialize.min.css">
-  <link rel="stylesheet" href="css/material.min.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <style>
-  #view-source {
-    position: fixed;
-    display: block;
-    right: 0;
-    bottom: 0;
-    margin-right: 40px;
-    margin-bottom: 40px;
-    z-index: 900;
+  if (!isset($_SESSION["logado"])) {
+    header("location:login.php");
   }
-</style>
+  ?>
+  <!doctype html>
+
+  <html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Richard's " autor="Fernando Rodrigues da Silva">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= SITE_NAME ?></title>
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <link rel="stylesheet" href="css/materialize.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/material.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+  </style>
 </head>
 <body>
   <div class="demo-blog mdl-layout mdl-js-layout has-drawer is-upgraded">
@@ -118,20 +125,29 @@ if (!isset($_SESSION["logado"])) {
   <script src="js/material.min.js"></script>
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/materialize.js"></script>
-</body>
-<script>
-  Array.prototype.forEach.call(document.querySelectorAll('.mdl-card__media'), function(el) {
-    var link = el.querySelector('a');
-    if(!link) {
-      return;
-    }
-    var target = link.getAttribute('href');
-    if(!target) {
-      return;
-    }
-    el.addEventListener('click', function() {
-      location.href = target;
+  <script>
+    Array.prototype.forEach.call(document.querySelectorAll('.mdl-card__media'), function(el) {
+      var link = el.querySelector('a');
+      if(!link) {
+        return;
+      }
+      var target = link.getAttribute('href');
+      if(!target) {
+        return;
+      }
+      el.addEventListener('click', function() {
+        location.href = target;
+      });
     });
-  });
-</script>
+  </script>
+<?php elseif(status_site == 1):
+  echo site_inativo();
+else:
+  echo site_manutencao();
+endif;
+?>
+</body>
 </html>
+<?php 
+ob_end_flush();
+?>
